@@ -1,24 +1,29 @@
 {
   "name": "go2fishseafood_web",
   "version": "1.0.0",
-  "description": "go2fishseafood web server",
-  "main": "server.js",
+  "description": "go2fishseafood webapp",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/ouyangwanbin/go2fishseafood_web"
   },
+  "keywords": [
+    "seafood",
+    "webapp"
+  ],
   "author": "Wanbin Ouyang",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ouyangwanbin/go2fishseafood_web/issues"
   },
-  "homepage": "https://github.com/ouyangwanbin/go2fishseafood_web",
+  "homepage": "https://go2fishseafood.com",
   "devDependencies": {
-    "client-sessions": "^0.7.0",
-    "express": "^4.13.4"
+    "angular": "^1.5.5",
+    "angular-route": "^1.5.5",
+    "bootstrap": "^3.3.6",
+    "jquery": "^1.11.3"
   }
 }

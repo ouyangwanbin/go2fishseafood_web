@@ -1,3 +1,7 @@
 go2fishApp.controller('loginController', function($scope) {
-    $scope.message = 'Login page for Go2fish Seafood';
+    $scope.login = function( ) {
+        var userName = $scope.userEmail;
+        var password = $scope.userPassword;
+        console.log(userName + ' : ' + password);
+    }
 });

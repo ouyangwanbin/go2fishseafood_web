@@ -1,8 +1,11 @@
 var express = require("express");
 var bodyParser = require('body-parser');
+var router = express.Router();
 var app = express();
 var session = require('client-sessions');
 var port = process.env.PORT || 3000;
+var userService = require('./userService');
+
 
 function makeString(num) {
     var text = "";
@@ -31,8 +34,26 @@ app.use(session({
     ephemeral: true
 }));
 
-
+app.use(router);
 app.use("/", express.static('client'));
+
+router.post("/login", function(req, res) {
+    var userEmail = req.body.userEmail;
+    var password = req.body.password;
+    userService.login(userEmail, password, req, res);
+});
+
+router.get("/getUser", function(req, res) {
+    res.json( req.session.user );
+});
+
+router.get("/logout", function(req, res) {
+    var user = req.session.user;
+    if( user ){
+        userService.logout(user, req, res);
+    }
+});
+
 
 app.listen(port);
 console.log('Server running on ' + port);

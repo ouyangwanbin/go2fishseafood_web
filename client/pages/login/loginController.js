@@ -4,6 +4,9 @@ go2fishApp.controller('loginController', ['$scope', '$rootScope', '$http', '$loc
         if( $rootScope.user !== null ){
              $location.path('/');
         }
+
+        //clean the error
+        $scope.loginFormError = null;
     }
 
     $scope.login = function() {
@@ -14,8 +17,12 @@ go2fishApp.controller('loginController', ['$scope', '$rootScope', '$http', '$loc
             "password": password
         }
         $http.post('/login', data).then(function(res) {
-            $rootScope.user = res.data;
-            $location.path('/');
+            if( res.data.status !== "success" ){
+                $scope.loginFormError = res.data.msg;
+            }else{
+                $rootScope.user = res.data.data;
+                $location.path('/');    
+            }           
         }, function(res) {
             console.log(res);
         })

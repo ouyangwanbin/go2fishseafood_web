@@ -7,6 +7,10 @@ UserService.login = function(email, password, req, response) {
     request(config.RestURL['development'] + '/users/' + email + '/1', function(err, res, body) {
         var jsonBody = util.jsonParse(body);
         if (!util.processResponse(err, response, jsonBody)) {
+            var result = {};
+            result.status = "fail";
+            result.msg = "login failed";
+            response.json(result);
             return;
         }
         var count = jsonBody.data.count;
@@ -26,6 +30,10 @@ UserService.login = function(email, password, req, response) {
         request(option, function(err, res, body) {
             var jsonBody = util.jsonParse(body);
             if (!util.processResponse(err, response, jsonBody)) {
+                var result = {};
+                result.status = "fail";
+                result.msg = "login failed";
+                response.json(result);
                 return;
             }
             //store in the session
@@ -33,7 +41,10 @@ UserService.login = function(email, password, req, response) {
             req.session.user.email = jsonBody.data.user.email;
             req.session.user.userId = jsonBody.data.user._id;
             req.session.user.token = jsonBody.data.token;
-            response.json(jsonBody.data.user);
+            var result = {};
+            result.status = "success";
+            result.data = jsonBody.data.user;
+            response.json(result);
         });
     });
 }
@@ -49,7 +60,7 @@ UserService.logout = function(user, req, response) {
     request(option, function(err, res, body) {
         var jsonBody = util.jsonParse(body);
         req.session.user = null;
-    	response.json( jsonBody.data );
+        response.json(jsonBody.data);
     })
 }
 
